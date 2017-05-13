@@ -17,7 +17,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <label class="col-md-4 control-label text-right">Email address</label>
+              <label class="col-md-4 control-label text-right">Password</label>
               <div class="col-md-4">
                 <input v-model="password" class="form-control" type="password">
               </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import {HTTP} from '@/common'
+import { HTTP } from '@/common'
 
 export default {
   name: 'login',

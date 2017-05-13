@@ -1,0 +1,1 @@
+export const SET_CSRFTOKEN = 'SET_CSRFTOKEN'
