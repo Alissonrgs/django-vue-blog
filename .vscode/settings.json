@@ -1,0 +1,7 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "python.pythonPath": "/home/args/.virtualenvs/blog/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "files.trimTrailingWhitespace": true
+}

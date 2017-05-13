@@ -1,0 +1,2 @@
+curl -X POST -H "Content-Type: application/json" -d "{'username': 'args', 'password': 'C4l05123'}" http://localhost:8000/api/api-auth/login/
+curl -X POST -H 'Accept: application/json' -u args:C4l05123 http://127.0.0.1:8000/api/auth/login/
