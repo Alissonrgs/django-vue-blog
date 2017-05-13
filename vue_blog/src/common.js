@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export const HTTP = axios.create({
-  baseURL: `http://localhost:8000/api/`
+  baseURL: `http://localhost:8000/api/`,
+  xsrfHeaderName: 'X-CSRFToken'
 })
-
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'

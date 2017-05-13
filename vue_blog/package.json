@@ -19,8 +19,8 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.18.1",
     "vue": "^2.2.2",
-    "vue-2-breadcrumbs": "^0.1.1",
-    "vue-router": "^2.3.0"
+    "vue-router": "^2.3.0",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
