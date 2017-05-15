@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="form-actions col-md-6 text-right">
-            <button :keyup.enter="submit" class="btn btn-primary" title="Make a POST request on the User Create resource">Register</button>
+            <button @keyup.enter="submit" class="btn btn-primary" title="Make a POST request on the User Create resource">Register</button>
           </div>
         </fieldset>
       </form>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import {HTTP} from '@/common'
+import { HTTP } from '@/utils'
 
 export default {
   name: 'users',
@@ -117,9 +117,6 @@ export default {
     users: [],
     errors: []
   }),
-  created: function () {
-    this.helo()
-  },
   methods: {
     sortedArray: function (array, attr, inv) {
       function ord (a, b) {
@@ -135,35 +132,48 @@ export default {
       var password = ''
       if (this.password1 === this.password2) {
         password = this.password1
-        HTTP
-          .post(`users/create/`, {
+        HTTP({
+          method: 'POST',
+          url: 'users/create/',
+          headers: {
+            'X-CSRFToken': this.$store.state.csrftoken,
+            'Authorization': 'Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph'
+          },
+          data: {
             username: this.username,
             email: this.email,
             password: password
-          })
-          .then(response => {
-            console.log(response)
-            this.users = this.users.concat(response.data)
-            this.users = this.sortedArray(this.users, 'date_joined', true)
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
+          }
+        })
+        .then(response => {
+          console.log(response)
+          this.users = this.users.concat(response.data)
+          this.users = this.sortedArray(this.users, 'date_joined', true)
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
       } else {
         alert('There is a difference in passwords!')
       }
     }
   },
   mounted () {
-    HTTP
-      .get(`users/`)
-      .then(response => {
-        this.users = response.data
-        console.log(response)
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
+    HTTP({
+      method: 'GET',
+      url: 'v1/users/',
+      headers: {
+        'Authorization': 'Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph'
+      }
+    })
+    .then(response => {
+      this.users = response.data
+      console.log(response)
+      console.log(response.headers)
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
   }
 }
 </script>

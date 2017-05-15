@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import {HTTP} from '@/common'
+import { HTTP } from '@/utils'
 
 export default {
   name: 'posts',
@@ -80,41 +80,62 @@ export default {
       return array.sort(ord)
     },
     postPost: function () {
-      HTTP
-        .post(`posts/`, {
+      HTTP({
+        method: 'POST',
+        url: 'v1/posts/',
+        headers: {
+          'X-CSRFToken': this.$store.state.csrftoken,
+          'Authorization': 'Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph'
+        },
+        data: {
           author: this.author,
           description: this.description,
           status: true
-        })
-        .then(response => {
-          console.log(response)
-          this.posts = this.posts.concat(response.data)
-          this.posts = this.sortedArray(this.posts, 'posted', true)
-        })
-        .catch(e => {
-          this.errors.add(e)
-        })
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+        console.log(response.headers)
+        this.posts = this.posts.concat(response.data)
+        this.posts = this.sortedArray(this.posts, 'posted', true)
+      })
+      .catch(e => {
+        this.errors.add(e)
+      })
     }
   },
   mounted () {
-    HTTP
-      .get(`users`)
-      .then(response => {
-        this.users = response.data
-        console.log(response)
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
-    HTTP
-      .get(`posts`)
-      .then(response => {
-        console.log(response)
-        this.posts = response.data
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
+    HTTP({
+      method: 'GET',
+      url: 'v1/users/',
+      headers: {
+        'Authorization': 'Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph'
+      }
+    })
+    .then(response => {
+      console.log(response)
+      console.log(response.headers)
+      this.users = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+
+    HTTP({
+      method: 'GET',
+      url: 'v1/posts/',
+      headers: {
+        'Authorization': 'Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph'
+      }
+    })
+    .then(response => {
+      console.log(response)
+      console.log(response.headers)
+      this.posts = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
   }
 }
 </script>

@@ -5,7 +5,7 @@
 
       <p>Response: {{ data }}</p>
 
-      <form @submit.prevent="singIn">
+      <form @submit.prevent="signIn">
         <fieldset>
           <div class="form-group">
             <div class="row">
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="form-actions col-md-12 text-center">
-            <button :keyup.enter="submit" class="btn btn-primary">Login</button>
+            <button @keyup.enter="submit" class="btn btn-primary">Login</button>
           </div>
         </fieldset>
       </form>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { HTTP } from '@/common'
+import { HTTP } from '@/utils'
 
 export default {
   name: 'login',
@@ -53,17 +53,28 @@ export default {
   }),
   methods: {
     signIn () {
-      HTTP
-        .post(`auth/login/`, {
+      HTTP({
+        method: 'POST',
+        url: `o/token/`,
+        headers: {
+          'X-CSRFToken': this.$store.state.csrftoken
+        },
+        data: {
+          grant_type: 'password',
           username: this.username,
-          password: this.password
-        })
-        .then(response => {
-          console.log(response)
-          this.data = response.data
-        }).catch(errors => {
-          this.errors = errors
-        })
+          password: this.password,
+          scope: 'read',
+          client_id: 'gFwqIENKSJtFAKumGVE9nDO9qyFWhVOFGnaCfPG0',
+          client_secret: 'kfYR7Ow7Os1ybXNu9eTeky0E5WHFKlGUlQEstnuQLNjOliNMMosJuKdZc0Y2qhgF0XWW6SwG5b0xAyOOFoeIUSFpEbSAJjJ9W4jfMQFsrNVBAGCghiUNlJnvcbQP2gCV'
+        }
+      })
+      .then(response => {
+        console.log(response)
+        console.log(response.headers)
+        this.data = response.data
+      }).catch(errors => {
+        this.errors = errors
+      })
     }
   }
 }

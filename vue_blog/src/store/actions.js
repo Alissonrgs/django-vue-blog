@@ -1,9 +1,9 @@
-import axios from 'axios'
+import { HTTP } from '@/utils'
 import * as types from './mutation-types'
 
 export const getCSRFToken = ({ commit }) => {
-  axios
-    .get('http://localhost:8000/csrftoken/')
+  HTTP
+    .get(`csrftoken/`)
     .then((response) => {
       commit(types.SET_CSRFTOKEN, response.data.csrftoken)
     }, (error) => {

@@ -1,2 +1,21 @@
-curl -X POST -H "Content-Type: application/json" -d "{'username': 'args', 'password': 'C4l05123'}" http://localhost:8000/api/api-auth/login/
-curl -X POST -H 'Accept: application/json' -u args:C4l05123 http://127.0.0.1:8000/api/auth/login/
+curl -X POST -d "grant_type=password&username=args&password=@Calos123" -u"gFwqIENKSJtFAKumGVE9nDO9qyFWhVOFGnaCfPG0:kfYR7Ow7Os1ybXNu9eTeky0E5WHFKlGUlQEstnuQLNjOliNMMosJuKdZc0Y2qhgF0XWW6SwG5b0xAyOOFoeIUSFpEbSAJjJ9W4jfMQFsrNVBAGCghiUNlJnvcbQP2gCV" http://localhost:8000/api/o/token/
+response:
+{
+    "scope": "write read",
+    "token_type": "Bearer",
+    "access_token": "5UOoEWYbWuerT5IldBNKqdlSOfd5Ph",
+    "expires_in": 36000,
+    "refresh_token": "RuHov0JpcySmEkYksSFsWomWOIDMi7"
+}
+
+# Retrieve users
+curl -H "Authorization: Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph" http://localhost:8000/api/v1/users/
+curl -H "Authorization: Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph" http://localhost:8000/api/v1/users/1/
+
+# Retrieve groups
+curl -H "Authorization: Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph" http://localhost:8000/api/v1/groups/
+
+# Insert a new user
+curl -H "Authorization: Bearer 5UOoEWYbWuerT5IldBNKqdlSOfd5Ph" -X POST -d"username=foo&password=bar" http://localhost:8000/api/v1/users/
+
+curl -X POST -d "grant_type=password&username=args&password=@Calos123&scope=read" -u"gFwqIENKSJtFAKumGVE9nDO9qyFWhVOFGnaCfPG0:kfYR7Ow7Os1ybXNu9eTeky0E5WHFKlGUlQEstnuQLNjOliNMMosJuKdZc0Y2qhgF0XWW6SwG5b0xAyOOFoeIUSFpEbSAJjJ9W4jfMQFsrNVBAGCghiUNlJnvcbQP2gCV" http://localhost:8000/api/o/token/

@@ -2,5 +2,7 @@ import axios from 'axios'
 
 export const HTTP = axios.create({
   baseURL: `http://localhost:8000/api/`,
-  xsrfHeaderName: 'X-CSRFToken'
+  headers: {
+    'Content-Type': 'application/json'
+  }
 })

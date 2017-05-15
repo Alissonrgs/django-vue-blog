@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'oauth2_provider',
     'rest_framework',
     'corsheaders',
 
@@ -48,9 +49,12 @@ INSTALLED_APPS = [
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 MIDDLEWARE = [
@@ -68,6 +72,10 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080'
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    'localhost:8080',
 )
 
 ROOT_URLCONF = 'dj_blog.urls'
