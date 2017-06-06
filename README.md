@@ -2,11 +2,12 @@
 
 # Requirements
 
-+ Install [nodejs](https://nodejs.org)
+- Install [nodejs](https://nodejs.org)
 
-+ Use the environment with python 3
+- Install [vuejs](https://vuejs.org)
+
+- Use the environment with python 3
 
 # Install
-```
-make deps
-```
+
+> make deps
